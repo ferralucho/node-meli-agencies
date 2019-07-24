@@ -5,11 +5,11 @@ import { Agency } from "../agency.model";
 import { AgencysService } from "../agencies.service";
 
 @Component({
-  selector: "app-agency-list",
-  templateUrl: "./agency-list.component.html",
-  styleUrls: ["./agency-list.component.css"]
+  selector: "app-agency-recomendadas",
+  templateUrl: "./agency-recomendadas.component.html",
+  styleUrls: ["./agency-recomendadas.component.css"]
 })
-export class AgencyListComponent implements OnInit, OnDestroy {
+export class AgencyRecomendadasComponent implements OnInit, OnDestroy {
  
   agencies: Agency[] = [];
   isLoading = false;
@@ -32,7 +32,7 @@ export class AgencyListComponent implements OnInit, OnDestroy {
   }
 
   onUnlike(agency) {
-    this.agenciesService.unlikeAgency(agency.id, agency.site_id);
+    //this.agenciesService.(agencyId);
   }
 
   ngOnDestroy() {
