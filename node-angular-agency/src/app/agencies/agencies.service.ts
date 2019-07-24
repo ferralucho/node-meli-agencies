@@ -31,7 +31,7 @@ export class AgencysService {
     .get("http://localhost:3000/api/agencies/"+ siteId+"?payment_method=" + paymentMethodId + "&latitud=-" + latitud +"&longitud=" + longitud+ "&radio=" + radio + "&limit=" + limit + "&order_criteria=" + orderCriteria + "&order_criteria_sort=" + orderCriteriaSort)
     .subscribe((transformedAgencys: any[]) => {
       this.agencies = transformedAgencys;
-      this.router.navigate(["/"]);
+      
       this.agenciesUpdated.next([...this.agencies]);
       
     });

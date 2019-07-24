@@ -3,6 +3,7 @@ import { NgForm } from "@angular/forms";
 import { ActivatedRoute, ParamMap } from "@angular/router";
 import { AgencysService } from "../agencies.service";
 import { SearchAgency } from "../search-agency";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-agency-create",
@@ -26,7 +27,8 @@ export class AgencyCreateComponent implements OnInit {
 
   constructor(
     public agenciesService: AgencysService,
-    public route: ActivatedRoute
+    public route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -51,6 +53,7 @@ export class AgencyCreateComponent implements OnInit {
         form.value.longitud, form.value.radio, limit, form.value.order_criteria, form.value.order_criteria_sort)
    
     form.resetForm();
+    this.router.navigate(["/"]);
 
   }
 }
