@@ -79,22 +79,23 @@ router.get('/:site_id/', function (req, res) {
         });
 });
 
-//http://localhost:3000/agencies/agencias_recomendadas
+//http://localhost:3000/api/agencies/agencias_recomendadas
 
-router.get('/agencias_recomendadas', function (req, res) {
-    console.log("entro a agencias recomendadas")
+router.get('/:site_id/agencias-recomendadas', function (req, res) {
+    let arrAgenciesRecomendadas = [];
     fs.readFile('agencias-recomendadas.json', 'utf8', function readFileCallback(err, agenciesRecomendadas) {
+      
         if (err) {
             //throw err;
         } else {
-            let arrAgenciesRecomendadas = [];
+            
             if (agenciesRecomendadas) {
                 arrAgenciesRecomendadas = JSON.parse(agenciesRecomendadas);
             }
-
-            res.send(agenciesRecomendadas)
+            res.send(arrAgenciesRecomendadas)    
         }
     });
+    
 });
 
 //http://localhost:3000/agencies/MLA/5690084ae4b0ce36d943c765/like
@@ -148,7 +149,7 @@ router.get('/:siteId/:agency_id/like', function (req, res) {
 });
 
 //http://localhost:3000/agencies/MLA/5690084ae4b0ce36d943c765/unlike
-
+//http://localhost:3000/api/agencies/MLA/5690084ae4b0ce36d943c765/unlike
 router.get('/:siteId/:agency_id/unlike', function (req, res) {
     let agencyId = req.params.agency_id
     let agencyGuardada = {}

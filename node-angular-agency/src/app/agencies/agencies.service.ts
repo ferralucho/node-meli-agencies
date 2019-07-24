@@ -28,7 +28,7 @@ export class AgencysService {
 
   getAgenciesRecomendadas() {
     this.http
-    .get("http://localhost:3000/api/agencies/agencias-recomendadas")
+    .get("http://localhost:3000/api/agencies/MLA/agencias-recomendadas")
     .subscribe((transformedAgencys: any[]) => {
       if(transformedAgencys){
         this.agenciesRecomendadas = transformedAgencys;
