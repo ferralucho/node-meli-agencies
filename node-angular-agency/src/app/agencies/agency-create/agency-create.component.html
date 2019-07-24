@@ -41,6 +41,7 @@
           name="longitud"
           [ngModel]="searchsearchAgency?.longitud"
           required
+          minlength="3"
           placeholder="Longitud"
           #longitud="ngModel">
         <mat-error *ngIf="longitud.invalid">Ingrese la longitud</mat-error>
@@ -51,6 +52,7 @@
             name="radio"
             [ngModel]="searchAgency?.radio"
             required
+            minlength="3"
             placeholder="Radio"
             #radio="ngModel">
           <mat-error *ngIf="radio.invalid">Ingrese el radio</mat-error>
