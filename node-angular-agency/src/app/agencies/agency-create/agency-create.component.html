@@ -1,0 +1,32 @@
+<mat-card>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <form (submit)="onSaveAgency(postForm)" #postForm="ngForm" *ngIf="!isLoading">
+    <mat-form-field>
+      <input
+        matInput
+        type="text"
+        name="title"
+        [ngModel]="agency?.title"
+        required
+        minlength="3"
+        placeholder="Agency Title"
+        #title="ngModel">
+      <mat-error *ngIf="title.invalid">Please enter a agency title.</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <textarea
+        matInput
+        rows="4"
+        name="content"
+        [ngModel]="agency?.content"
+        required
+        placeholder="Agency Content"
+        #content="ngModel"></textarea>
+      <mat-error *ngIf="content.invalid">Please enter a agency title.</mat-error>
+    </mat-form-field>
+    <button
+      mat-raised-button
+      color="accent"
+      type="submit">Save Agency</button>
+  </form>
+</mat-card>
