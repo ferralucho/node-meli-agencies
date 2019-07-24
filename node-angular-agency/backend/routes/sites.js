@@ -2,7 +2,6 @@ var express = require('express');
 var request = require('request');
 var router = express.Router();
 
-/* GET sites listing. */
 router.get('/', function (req, res) {
     request.get("https://api.mercadolibre.com/sites", function (error, response, body) {
         if (error) {

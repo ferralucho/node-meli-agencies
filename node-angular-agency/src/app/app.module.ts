@@ -9,7 +9,9 @@ import {
   MatButtonModule,
   MatToolbarModule,
   MatExpansionModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
+  MatSelectModule,
+  MatOptionModule
 } from "@angular/material";
 
 import { AppComponent } from "./app.component";
@@ -38,6 +40,8 @@ import { AgencyRecomendadasComponent } from "./agencies/agency-recomendadas/agen
     MatToolbarModule,
     MatExpansionModule,
     MatProgressSpinnerModule,
+    MatSelectModule,
+    MatOptionModule,
     HttpClientModule
   ],
   providers: [],

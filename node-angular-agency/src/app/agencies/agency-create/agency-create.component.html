@@ -68,22 +68,21 @@
             <!-- <mat-error *ngIf="limit.invalid">Ingrese la cantidad de agencias a mostrar</mat-error> -->
           </mat-form-field>
           <mat-form-field>
-              <input
-                matInput
-                name="order_criteria"
-                [ngModel]="searchAgency?.order_criteria"
-                placeholder="Criterio de ordenamiento"
-                #order_criteria="ngModel">
-              <!-- <mat-error *ngIf="order_criteria.invalid">Ingrese el criterio de ordenamiento</mat-error> -->
+              <mat-label>Criterio de ordenamiento</mat-label>
+              <mat-select [(value)]="selectedCriterioOrdenamiento" [(ngModel)]="selectedCriterioOrdenamiento" name="criterioOrdenamiento">
+                <mat-option *ngFor="let criterio of criteriosOrden" [value]="criterio.value">
+                  {{criterio.viewValue}}
+                </mat-option>
+              </mat-select>
             </mat-form-field>
+        
             <mat-form-field>
-                <input
-                  matInput
-                  name="order_criteria_sort"
-                  [ngModel]="searchAgency?.order_criteria_sort"
-                  placeholder="Orden de criterio de ordenamiento"
-                  #order_criteria_sort="ngModel">
-                <!-- <mat-error *ngIf="order_criteria_sort.invalid">Ingrese el orden del criterio de ordenamiento</mat-error> -->
+                <mat-label>Criterio de ordenamiento</mat-label>
+                <mat-select  [(ngModel)]="selectedCriterioOrdenamientoSort" name="criterioOrdenamientoSort">
+                  <mat-option *ngFor="let criterioSort of criteriosOrdenSort" [value]="criterioSort.value">
+                    {{criterioSort.viewValue}}
+                  </mat-option>
+                </mat-select>
               </mat-form-field>
      
     <button
