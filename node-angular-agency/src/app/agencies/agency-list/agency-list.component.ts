@@ -27,8 +27,12 @@ export class AgencyListComponent implements OnInit, OnDestroy {
       });
   }
 
-  onDelete(agencyId: string) {
-    //this.agenciesService.deleteAgency(agencyId);
+  onLike(agency) {
+    this.agenciesService.likeAgency(agency.id, agency.site_id);
+  }
+
+  onUnlike(agency) {
+    //this.agenciesService.(agencyId);
   }
 
   ngOnDestroy() {

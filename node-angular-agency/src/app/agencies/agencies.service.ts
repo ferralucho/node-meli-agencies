@@ -41,6 +41,20 @@ export class AgencysService {
       "http://localhost:3000/api/agencies/" + id
     );
   }
+
+  likeAgency(agencyId: string, siteId: string) {
+    this.http
+      .get("http://localhost:3000/api/agencies/" + siteId + "/" + agencyId +"/like")
+      .subscribe((res) => {
+        console.log(res)
+        /*
+        const updatedAgencys = this.agencies.filter(agency => agency.id !== agencyId);
+        this.agencies = updatedAgencys;
+        this.agenciesUpdated.next([...this.agencies]);
+        */
+      });
+  }
+
 /*
   addAgency(title: string, content: string) {
     const agency: Agency = { id: null, title: title, content: content };

@@ -100,8 +100,8 @@ router.get('/agencias_recomendadas', function (req, res) {
 //http://localhost:3000/agencies/MLA/5690084ae4b0ce36d943c765/like
 
 router.get('/:site_id/:agency_id/like', function (req, res) {
-    let siteId = req.params.site_id
     let agencyId = req.params.agency_id
+    let siteId = req.params.site_id
     let agencyGuardada = {}
 
     fs.readFile('agencies.json', 'utf8', function readFileCallback(err, data) {
@@ -149,8 +149,7 @@ router.get('/:site_id/:agency_id/like', function (req, res) {
 
 //http://localhost:3000/agencies/MLA/5690084ae4b0ce36d943c765/unlike
 
-router.get('/:site_id/:agency_id/unlike', function (req, res) {
-    let siteId = req.params.site_id
+router.get('/:agency_id/unlike', function (req, res) {
     let agencyId = req.params.agency_id
     let agencyGuardada = {}
 
