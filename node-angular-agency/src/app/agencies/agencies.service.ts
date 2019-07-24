@@ -11,10 +11,12 @@ export class AgencysService {
   private agencies: Agency[] = [];
   private agenciesUpdated = new Subject<Agency[]>();
 
+  private agenciesRecomendadas: Agency[] = [];
+  private agenciesRecomendadasUpdated = new Subject<Agency[]>();
+
   constructor(private http: HttpClient, private router: Router) {}
 
   getAgencys() {
-
       this.http
       .get("http://localhost:3000/api/agencies/MLA?payment_method=rapipago&latitud=-31.412971&longitud=-64.18758&radio=500&limit=500&order_criteria=address_line&order_criteria_sort=")
       .subscribe((transformedAgencys: any[]) => {
@@ -24,8 +26,25 @@ export class AgencysService {
       
   }
 
+  getAgenciesRecomendadas() {
+    this.http
+    .get("http://localhost:3000/api/agencies/agencias-recomendadas")
+    .subscribe((transformedAgencys: any[]) => {
+      if(transformedAgencys){
+        this.agenciesRecomendadas = transformedAgencys;
+        this.agenciesRecomendadasUpdated.next([...this.agenciesRecomendadas]);
+      }
+
+    });
+    
+}
+
   getAgencyUpdateListener() {
     return this.agenciesUpdated.asObservable();
+  }
+
+  getAgenciesRecomendadasUpdateListener() {
+    return this.agenciesRecomendadasUpdated.asObservable();
   }
 
   getAgency(id: string) {

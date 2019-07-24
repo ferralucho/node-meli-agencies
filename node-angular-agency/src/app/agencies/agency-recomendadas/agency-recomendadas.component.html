@@ -7,10 +7,7 @@
     </mat-expansion-panel-header>
     <p>Código de agencia : {{ agency.agency_code }} Site : {{agency.site_id}} </p>
     <p>Dirección : {{ agency.address.address_line }} Ciudad : {{agency.address.city}} Provincia: {{agency.address.state}} - Código postal: {{agency.address.zip_code}} - Teléfono: {{agency.phone}}</p>
-    <mat-action-row>
-      <a mat-button color="primary" (click)="onLike(agency)">Like</a>
-      <button mat-button color="warn" (click)="onUnlike(agency)">Unlike</button>
-    </mat-action-row>
+   
   </mat-expansion-panel>
 </mat-accordion>
 <p class="info-text mat-body-1" *ngIf="agencies.length <= 0 && !isLoading">No hay agencias</p>

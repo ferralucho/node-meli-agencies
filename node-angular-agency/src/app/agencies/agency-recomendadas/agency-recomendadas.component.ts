@@ -19,20 +19,12 @@ export class AgencyRecomendadasComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.isLoading = true;
-    this.agenciesService.getAgencys();
-    this.agenciesSub = this.agenciesService.getAgencyUpdateListener()
+    this.agenciesService.getAgenciesRecomendadas();
+    this.agenciesSub = this.agenciesService.getAgenciesRecomendadasUpdateListener()
       .subscribe((agencies: Agency[]) => {
         this.isLoading = false;
         this.agencies = agencies;
       });
-  }
-
-  onLike(agency) {
-    this.agenciesService.likeAgency(agency.id, agency.site_id);
-  }
-
-  onUnlike(agency) {
-    //this.agenciesService.(agencyId);
   }
 
   ngOnDestroy() {

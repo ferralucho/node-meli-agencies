@@ -17,13 +17,15 @@ import { AgencyCreateComponent } from "./agencies/agency-create/agency-create.co
 import { HeaderComponent } from "./header/header.component";
 import { AgencyListComponent } from "./agencies/agency-list/agency-list.component";
 import { AppRoutingModule } from "./app-routing.module";
+import { AgencyRecomendadasComponent } from "./agencies/agency-recomendadas/agency-recomendadas.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     AgencyCreateComponent,
     HeaderComponent,
-    AgencyListComponent
+    AgencyListComponent,
+    AgencyRecomendadasComponent
   ],
   imports: [
     BrowserModule,
