@@ -28,6 +28,11 @@ router.get('/:site_id/', function (req, res) {
     let orderCriteria = req.query.order_criteria;
     let orderCriteriaSort = req.query.order_criteria_sort;
 
+    if(!limit || limit == "NaN")
+    {
+        limit = 50
+    }
+
     let url = "https://api.mercadolibre.com/sites/" + siteId + "/payment_methods/" + paymentMethod + "/agencies?" + "near_to=" + latitud + "," + longitud + "," + radio + "&limit=" + limit
     let agencies
 
@@ -81,7 +86,7 @@ router.get('/:site_id/', function (req, res) {
 
 //http://localhost:3000/api/agencies/agencias_recomendadas
 
-router.get('/:site_id/agencias-recomendadas', function (req, res) {
+router.get('/sites/agencias-recomendadas', function (req, res) {
     let arrAgenciesRecomendadas = [];
     fs.readFile('agencias-recomendadas.json', 'utf8', function readFileCallback(err, agenciesRecomendadas) {
       

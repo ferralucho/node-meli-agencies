@@ -1,32 +1,92 @@
 <mat-card>
   <mat-spinner *ngIf="isLoading"></mat-spinner>
   <form (submit)="onSaveAgency(postForm)" #postForm="ngForm" *ngIf="!isLoading">
+      <mat-form-field>
+          <input
+            matInput
+            type="text"
+            name="site_id"
+            [ngModel]="searchAgency?.site_id"
+            required
+            minlength="3"
+            placeholder="Sitio"
+            #site_id="ngModel">
+          <mat-error *ngIf="site_id.invalid">Ingrese un sitio</mat-error>
+        </mat-form-field>
     <mat-form-field>
       <input
         matInput
         type="text"
-        name="title"
-        [ngModel]="agency?.title"
+        name="payment_method_id"
+        [ngModel]="searchAgency?.payment_method_id"
         required
         minlength="3"
-        placeholder="Agency Title"
-        #title="ngModel">
-      <mat-error *ngIf="title.invalid">Please enter a agency title.</mat-error>
+        placeholder="Metodo de pago"
+        #payment_method_id="ngModel">
+      <mat-error *ngIf="payment_method_id.invalid">Ingrese un metodo de pago</mat-error>
     </mat-form-field>
     <mat-form-field>
-      <textarea
+      <input
         matInput
-        rows="4"
-        name="content"
-        [ngModel]="agency?.content"
+        name="latitud"
+        [ngModel]="searchsearchAgency?.latitud"
         required
-        placeholder="Agency Content"
-        #content="ngModel"></textarea>
-      <mat-error *ngIf="content.invalid">Please enter a agency title.</mat-error>
+        placeholder="Latitud"
+        #latitud="ngModel">
+      <mat-error *ngIf="latitud.invalid">Ingrese la latitud</mat-error>
     </mat-form-field>
+    <mat-form-field>
+        <input
+          matInput
+          name="longitud"
+          [ngModel]="searchsearchAgency?.longitud"
+          required
+          placeholder="Longitud"
+          #longitud="ngModel">
+        <mat-error *ngIf="longitud.invalid">Ingrese la longitud</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+          <input
+            matInput
+            name="radio"
+            [ngModel]="searchAgency?.radio"
+            required
+            placeholder="Radio"
+            #radio="ngModel">
+          <mat-error *ngIf="radio.invalid">Ingrese el radio</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input
+              matInput
+              rows="4"
+              name="limit"
+              [ngModel]="searchAgency?.limit"
+              placeholder="Cantidad de agencias"
+              #limit="ngModel">
+            <!-- <mat-error *ngIf="limit.invalid">Ingrese la cantidad de agencias a mostrar</mat-error> -->
+          </mat-form-field>
+          <mat-form-field>
+              <input
+                matInput
+                name="order_criteria"
+                [ngModel]="searchAgency?.order_criteria"
+                placeholder="Criterio de ordenamiento"
+                #order_criteria="ngModel">
+              <!-- <mat-error *ngIf="order_criteria.invalid">Ingrese el criterio de ordenamiento</mat-error> -->
+            </mat-form-field>
+            <mat-form-field>
+                <input
+                  matInput
+                  name="order_criteria_sort"
+                  [ngModel]="searchAgency?.order_criteria_sort"
+                  placeholder="Orden de criterio de ordenamiento"
+                  #order_criteria_sort="ngModel">
+                <!-- <mat-error *ngIf="order_criteria_sort.invalid">Ingrese el orden del criterio de ordenamiento</mat-error> -->
+              </mat-form-field>
+     
     <button
       mat-raised-button
       color="accent"
-      type="submit">Save Agency</button>
+      type="submit">Buscar Agencias</button>
   </form>
 </mat-card>

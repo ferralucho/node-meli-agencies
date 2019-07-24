@@ -18,11 +18,12 @@ export class AgencyListComponent implements OnInit, OnDestroy {
   constructor(public agenciesService: AgencysService) {}
 
   ngOnInit() {
-    this.isLoading = true;
-    this.agenciesService.getAgencys();
+    //this.isLoading = true;
+    //this.agenciesService.getAgencys();
+    
     this.agenciesSub = this.agenciesService.getAgencyUpdateListener()
       .subscribe((agencies: Agency[]) => {
-        this.isLoading = false;
+      //  this.isLoading = false;
         this.agencies = agencies;
       });
   }

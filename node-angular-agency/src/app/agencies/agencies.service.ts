@@ -25,10 +25,22 @@ export class AgencysService {
       });
       
   }
+//   .get("http://localhost:3000/api/agencies/"+ siteId+"?payment_method=" + paymentMethodId + "&latitud=-31.412971&longitud=-64.18758&radio=500&limit=500&order_criteria=address_line&order_criteria_sort=")
+  getAgencies(siteId: string, paymentMethodId: string, latitud: number, longitud: number, radio: number, limit: number, orderCriteria: string, orderCriteriaSort: string) {
+    this.http
+    .get("http://localhost:3000/api/agencies/"+ siteId+"?payment_method=" + paymentMethodId + "&latitud=-" + latitud +"&longitud=" + longitud+ "&radio=" + radio + "&limit=" + limit + "&order_criteria=" + orderCriteria + "&order_criteria_sort=" + orderCriteriaSort)
+    .subscribe((transformedAgencys: any[]) => {
+      this.agencies = transformedAgencys;
+      this.router.navigate(["/"]);
+      this.agenciesUpdated.next([...this.agencies]);
+      
+    });
+    
+}
 
   getAgenciesRecomendadas() {
     this.http
-    .get("http://localhost:3000/api/agencies/MLA/agencias-recomendadas")
+    .get("http://localhost:3000/api/agencies/sites/agencias-recomendadas")
     .subscribe((transformedAgencys: any[]) => {
       if(transformedAgencys){
         this.agenciesRecomendadas = transformedAgencys;
