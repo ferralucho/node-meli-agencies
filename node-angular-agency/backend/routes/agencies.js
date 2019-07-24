@@ -139,9 +139,9 @@ router.get('/:siteId/:agency_id/like', function (req, res) {
                             fs.writeFile('agencias-recomendadas.json', json, 'utf8', function (err) {
                                 if (err) throw err;
                             });
-                            res.send("La agencia se guardó como recomendada")
+                            res.status(200).send("La agencia se guardó como recomendada")
                         } else {
-                            res.send("La agencia ya es recomendada")
+                            res.status(200).send("La agencia ya es recomendada")
                         }
                     }
 
@@ -194,9 +194,9 @@ router.get('/:siteId/:agency_id/unlike', function (req, res) {
                             fs.writeFile('agencias-recomendadas.json', json, 'utf8', function (err) {
                                 if (err) throw err;
                             });
-                            res.send("La agencia ya no es recomendada")
+                            res.status(200).send("La agencia ya no es recomendada")
                         } else {
-                            res.send("La agencia no es recomendada")
+                            res.status(200).send("La agencia no es recomendada")
                             //throw new Error('La agencia no es recomendada');
                         }
                     }

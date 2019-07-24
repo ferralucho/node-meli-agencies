@@ -10,9 +10,11 @@ import { Agency } from "./agency.model";
 export class AgencysService {
   private agencies: Agency[] = [];
   private agenciesUpdated = new Subject<Agency[]>();
+  private messagesUpdated = new Subject<string>();
 
   private agenciesRecomendadas: Agency[] = [];
   private agenciesRecomendadasUpdated = new Subject<Agency[]>();
+  private messages: string[] = [];
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -55,6 +57,10 @@ export class AgencysService {
     return this.agenciesUpdated.asObservable();
   }
 
+  getMessageUpdateListener() {
+    return this.messagesUpdated.asObservable();
+  }
+
   getAgenciesRecomendadasUpdateListener() {
     return this.agenciesRecomendadasUpdated.asObservable();
   }
@@ -68,68 +74,19 @@ export class AgencysService {
   likeAgency(agencyId: string, siteId: string) {
     this.http
       .get("http://localhost:3000/api/agencies/" + siteId + "/" + agencyId +"/like")
-      .subscribe((res) => {
+      .subscribe((res: string) => {
         console.log(res)
-        /*
-        const updatedAgencys = this.agencies.filter(agency => agency.id !== agencyId);
-        this.agencies = updatedAgencys;
-        this.agenciesUpdated.next([...this.agencies]);
-        */
+        this.messagesUpdated.next(res);
       });
   }
 
   unlikeAgency(agencyId: string, siteId: string) {
     this.http
       .get("http://localhost:3000/api/agencies/" + siteId + "/" + agencyId +"/unlike")
-      .subscribe((res) => {
+      .subscribe((res: string) => {
         console.log(res)
-        /*
-        const updatedAgencys = this.agencies.filter(agency => agency.id !== agencyId);
-        this.agencies = updatedAgencys;
-        this.agenciesUpdated.next([...this.agencies]);
-        */
+        this.messagesUpdated.next(res);
+        
       });
   }
-
-/*
-  addAgency(title: string, content: string) {
-    const agency: Agency = { id: null, title: title, content: content };
-    this.http
-      .agency<{ message: string; agencyId: string }>(
-        "http://localhost:3000/api/agencies",
-        agency
-      )
-      .subscribe(responseData => {
-        const id = responseData.agencyId;
-        agency.id = id;
-        this.agencies.push(agency);
-        this.agenciesUpdated.next([...this.agencies]);
-        this.router.navigate(["/"]);
-      });
-  }
-
-  updateAgency(id: string, title: string, content: string) {
-    const agency= { };
-    this.http
-      .put("http://localhost:3000/api/agencies/" + id, agency)
-      .subscribe(response => {
-        const updatedAgencys = [...this.agencies];
-        const oldAgencyIndex = updatedAgencys.findIndex(p => p.id === agency.id);
-        updatedAgencys[oldAgencyIndex] = agency;
-        this.agencies = updatedAgencys;
-        this.agenciesUpdated.next([...this.agencies]);
-        this.router.navigate(["/"]);
-      });
-  }
-
-  deleteAgency(agencyId: string) {
-    this.http
-      .delete("http://localhost:3000/api/agencies/" + agencyId)
-      .subscribe(() => {
-        const updatedAgencys = this.agencies.filter(agency => agency.id !== agencyId);
-        this.agencies = updatedAgencys;
-        this.agenciesUpdated.next([...this.agencies]);
-      });
-  }
-  */
 }
