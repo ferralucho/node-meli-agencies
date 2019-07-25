@@ -26,15 +26,15 @@ export class AgencyCreateComponent implements OnInit {
     order_criteria_sort: "ASC"
   };
   isLoading = false;
-  selectedCriterioOrdenamiento: string = "address_line"
-  selectedCriterioOrdenamientoSort: string = "ASC"
-  selectedSite: string = "MLA"
-  selectedPaymentMethod: string
+  selectedCriterioOrdenamiento: string = "address_line";
+  selectedCriterioOrdenamientoSort: string = "ASC";
+  selectedSite: string = "MLA";
+  selectedPaymentMethod: string;
   private sitesSub: Subscription;
   private paymentMethodsSub: Subscription;
 
-  private sites: any[] = []
-  private payment_methods: any[] = []
+  private sites: any[] = [];
+  private payment_methods: any[] = [];
 
   criteriosOrdenSort: ComboValue[] = [
     { value: 'ASC', viewValue: 'Ascendente' },
@@ -47,8 +47,8 @@ export class AgencyCreateComponent implements OnInit {
     { value: 'distance', viewValue: 'Distancia' }
   ];
 
-  sitesCombo: ComboValue[] = []
-  paymentMethodsCombo: ComboValue[] = []
+  sitesCombo: ComboValue[] = [];
+  paymentMethodsCombo: ComboValue[] = [];
 
   constructor(
     public agenciesService: AgencysService,
@@ -91,14 +91,11 @@ export class AgencyCreateComponent implements OnInit {
         });
       });
     this.agenciesService.getSites();
-    this.agenciesService.getPaymentMethodForSite(this.selectedSite)
-   
-    //this.agenciesService.getPaymentMethodForSite(this.selectedSite)
-    //this.selectedSite = "ALM"
+    this.agenciesService.getPaymentMethodForSite(this.selectedSite);
   }
 
   changeSite(ev){
-    this.agenciesService.getPaymentMethodForSite(this.selectedSite)
+    this.agenciesService.getPaymentMethodForSite(this.selectedSite);
   }
 
   onSaveAgency(form: NgForm) {
@@ -109,11 +106,11 @@ export class AgencyCreateComponent implements OnInit {
 
     let limit = 20;
     if (form.value.limit) {
-      limit = parseInt(form.value.limit)
+      limit = parseInt(form.value.limit);
     }
 
     this.agenciesService.getAgencies(this.selectedSite, this.selectedPaymentMethod, form.value.latitud,
-      form.value.longitud, form.value.radio, limit, this.selectedCriterioOrdenamiento, this.selectedCriterioOrdenamientoSort)
+      form.value.longitud, form.value.radio, limit, this.selectedCriterioOrdenamiento, this.selectedCriterioOrdenamientoSort);
 
     form.resetForm();
     this.router.navigate(["/"]);

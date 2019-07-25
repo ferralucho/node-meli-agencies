@@ -37,7 +37,7 @@ export class AgencysService {
     this.http
       .get("http://localhost:3000/api/sites/")
       .subscribe((sites: any[]) => {
-        this.sites = sites
+        this.sites = sites;
         this.sitesUpdated.next([...this.sites]);
       });
   }
@@ -46,7 +46,7 @@ export class AgencysService {
     this.http
       .get("http://localhost:3000/api/sites/" + siteId + "/payment_methods")
       .subscribe((paymentMethods: any[]) => {
-        this.paymentMethods = paymentMethods
+        this.paymentMethods = paymentMethods;
         this.paymentMethodsUpdated.next([...this.paymentMethods]);
       });
   }
