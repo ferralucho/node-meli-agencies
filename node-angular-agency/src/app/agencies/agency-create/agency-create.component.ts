@@ -59,11 +59,27 @@ export class AgencyCreateComponent implements OnInit {
   ngOnInit() {
     this.searchAgency.latitud = "31.4158499";
     this.searchAgency.longitud = "-64.1870048"
+
+    this.paymentMethodsSub = this.agenciesService.getPaymentMethodUpdateListener()
+    .subscribe((payments: any) => {
+
+      payments.sort(function (a, b) {
+        return a.name.localeCompare(b.name)
+      })
+      this.payment_methods = payments
+      this.paymentMethodsCombo = payments.map(s => {
+        return {
+          value: s.id,
+          viewValue: s.name
+        }
+      });
+    });
+
     this.sitesSub = this.agenciesService.getSiteUpdateListener()
       .subscribe((sites: any) => {
         //  this.isLoading = false;
         this.sites = sites
-        this.agenciesService.getPaymentMethodForSite(this.selectedSite)
+    
         this.sites.sort(function (a, b) {
           return a.name.localeCompare(b.name)
         })
@@ -75,24 +91,14 @@ export class AgencyCreateComponent implements OnInit {
         });
       });
     this.agenciesService.getSites();
-
-    this.paymentMethodsSub = this.agenciesService.getPaymentMethodUpdateListener()
-      .subscribe((payments: any) => {
-
-        payments.sort(function (a, b) {
-          return a.name.localeCompare(b.name)
-        })
-        this.payment_methods = payments
-        this.paymentMethodsCombo = payments.map(s => {
-          return {
-            value: s.id,
-            viewValue: s.name
-          }
-        });
-      });
-    console.log(this.payment_methods)
+    this.agenciesService.getPaymentMethodForSite(this.selectedSite)
+   
     //this.agenciesService.getPaymentMethodForSite(this.selectedSite)
     //this.selectedSite = "ALM"
+  }
+
+  changeSite(ev){
+    this.agenciesService.getPaymentMethodForSite(this.selectedSite)
   }
 
   onSaveAgency(form: NgForm) {

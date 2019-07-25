@@ -3,7 +3,7 @@
   <form (submit)="onSaveAgency(postForm)" #postForm="ngForm" *ngIf="!isLoading">
     <mat-form-field>
       <mat-label>Sitio</mat-label>
-      <mat-select required [(value)]="selectedSite" [(ngModel)]="selectedSite"
+      <mat-select required [(value)]="selectedSite" (selectionChange)="changeSite($event)" [(ngModel)]="selectedSite"
         name="site">
         <mat-option *ngFor="let site of sitesCombo" [value]="site.value">
           {{site.viewValue}}
