@@ -31,7 +31,6 @@ export class AgencyListComponent implements OnInit, OnDestroy {
       .subscribe((message: string) => {
       //  this.isLoading = false;
         this.messages = message;
-        console.log(this.messages)
       });
   }
 

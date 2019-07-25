@@ -14,6 +14,9 @@ export class AgencysService {
 
   private agenciesRecomendadas: Agency[] = [];
   private agenciesRecomendadasUpdated = new Subject<Agency[]>();
+
+  private sites: any[] = [];
+  private sitesUpdated = new Subject<any[]>();
   private messages: string[] = [];
 
   constructor(private http: HttpClient, private router: Router) {}
@@ -27,6 +30,17 @@ export class AgencysService {
       });
       
   }
+
+  getSites() {
+    this.http
+    .get("http://localhost:3000/api/sites/")
+    .subscribe((sites: any[]) => {
+      this.sites = sites
+      this.sitesUpdated.next([...this.sites]);
+    });
+  
+}
+
 //   .get("http://localhost:3000/api/agencies/"+ siteId+"?payment_method=" + paymentMethodId + "&latitud=-31.412971&longitud=-64.18758&radio=500&limit=500&order_criteria=address_line&order_criteria_sort=")
   getAgencies(siteId: string, paymentMethodId: string, latitud: number, longitud: number, radio: number, limit: number, orderCriteria: string, orderCriteriaSort: string) {
     this.http
@@ -59,6 +73,10 @@ export class AgencysService {
 
   getMessageUpdateListener() {
     return this.messagesUpdated.asObservable();
+  }
+
+  getSiteUpdateListener() {
+    return this.sitesUpdated.asObservable();
   }
 
   getAgenciesRecomendadasUpdateListener() {
