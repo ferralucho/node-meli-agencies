@@ -1,13 +1,7 @@
 const express = require("express");
-
-//const Agency = require("../models/agency");
-
 const router = express.Router();
 let request = require('request');
 let fs = require("fs")
-
-
-//http://localhost:3000/agencies/MLA?payment_method=rapipago&latitud=-31.412971&longitud=-64.18758&radio=500&limit=500&order_criteria=address_line&order_criteria_sort=
 
 router.get('/:site_id/', function (req, res) {
     let siteId = req.params.site_id
@@ -19,8 +13,7 @@ router.get('/:site_id/', function (req, res) {
     let orderCriteria = req.query.order_criteria;
     let orderCriteriaSort = req.query.order_criteria_sort;
 
-    if(!limit || limit == "NaN")
-    {
+    if (!limit || limit == "NaN") {
         limit = 50
     }
 
@@ -62,39 +55,33 @@ router.get('/:site_id/', function (req, res) {
             if (orderCriteriaSort && orderCriteriaSort == "DESC") {
                 agencies.reverse()
             }
-            if(agencies)
-            {
+            if (agencies) {
                 fs.writeFile("agencies.json", JSON.stringify(agencies), function (err) {
-                        if (err) throw err;
-                    }
+                    if (err) throw err;
+                }
                 );
             }
             //res.status(200).json({ message: "exitoso" });
             res.status(200).send(agencies)
-
         });
 });
-
-//http://localhost:3000/api/agencies/agencias_recomendadas
 
 router.get('/sites/agencias-recomendadas', function (req, res) {
     let arrAgenciesRecomendadas = [];
     fs.readFile('agencias-recomendadas.json', 'utf8', function readFileCallback(err, agenciesRecomendadas) {
-      
+
         if (err) {
             //throw err;
         } else {
-            
+
             if (agenciesRecomendadas) {
                 arrAgenciesRecomendadas = JSON.parse(agenciesRecomendadas);
             }
-            res.send(arrAgenciesRecomendadas)    
+            res.send(arrAgenciesRecomendadas)
         }
     });
-    
-});
 
-//http://localhost:3000/agencies/MLA/5690084ae4b0ce36d943c765/like
+});
 
 router.get('/:siteId/:agency_id/like', function (req, res) {
     let agencyId = req.params.agency_id
@@ -102,8 +89,7 @@ router.get('/:siteId/:agency_id/like', function (req, res) {
     let agencyGuardada = {}
 
     fs.readFile('agencies.json', 'utf8', function readFileCallback(err, data) {
-        if(!data || data == "undefined")
-        {
+        if (!data || data == "undefined") {
             res.send("Debe consultar agencias")
         }
         if (err) {
@@ -140,27 +126,21 @@ router.get('/:siteId/:agency_id/like', function (req, res) {
             });
         }
     });
-
-
 });
 
-//http://localhost:3000/agencies/MLA/5690084ae4b0ce36d943c765/unlike
-//http://localhost:3000/api/agencies/MLA/5690084ae4b0ce36d943c765/unlike
 router.get('/:siteId/:agency_id/unlike', function (req, res) {
     let agencyId = req.params.agency_id
     let agencyGuardada = {}
 
     fs.readFile('agencies.json', 'utf8', function readFileCallback(err, data) {
-        if(!data || data == "undefined")
-        {
+        if (!data || data == "undefined") {
             res.send("Debe consultar agencias")
             throw new Error('Debe consultar agencias');
         }
         if (err) {
             throw err
         } else {
-            if(!data)
-            {
+            if (!data) {
                 res.send("Debe consultar agencias")
             }
             let arrAgencies = JSON.parse(data)
@@ -171,17 +151,18 @@ router.get('/:siteId/:agency_id/unlike', function (req, res) {
                     throw err;
                 } else {
                     let arrAgenciesRecomendadas = [];
+                    let arrAgenciasFiltradas = [];
                     if (agenciesRecomendadas) {
                         arrAgenciesRecomendadas = JSON.parse(agenciesRecomendadas);
                     }
 
-
                     if (arrAgenciesRecomendadas.find(ag => ag.id == agencyId)) {
-                        arrAgenciesRecomendadas = arrAgenciesRecomendadas.filter(function (ag) {
-                            ag != agencyGuardada;
+                        arrAgenciasFiltradas = arrAgenciesRecomendadas.filter(function (ag) {
+                            return ag.id !== agencyId;
                         });
-                        if (arrAgenciesRecomendadas) {
-                            let json = JSON.stringify(arrAgenciesRecomendadas);
+
+                        if (arrAgenciasFiltradas) {
+                            let json = JSON.stringify(arrAgenciasFiltradas);
                             fs.writeFile('agencias-recomendadas.json', json, 'utf8', function (err) {
                                 if (err) throw err;
                             });
@@ -191,14 +172,10 @@ router.get('/:siteId/:agency_id/unlike', function (req, res) {
                             //throw new Error('La agencia no es recomendada');
                         }
                     }
-
                 }
             });
         }
     });
-
-
 });
 
 module.exports = router;
-
