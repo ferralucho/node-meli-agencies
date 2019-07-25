@@ -144,7 +144,7 @@ router.get('/:siteId/:agency_id/unlike', function (req, res) {
                 res.send("Debe consultar agencias")
             }
             let arrAgencies = JSON.parse(data)
-            agencyGuardada = arrAgencies.find(ag => ag.id == agencyId)
+            agencyGuardada = arrAgencies.find(ag => ag.id == agencyId);
 
             fs.readFile('agencias-recomendadas.json', 'utf8', function readFileCallback(err, agenciesRecomendadas) {
                 if (err) {
@@ -166,9 +166,9 @@ router.get('/:siteId/:agency_id/unlike', function (req, res) {
                             fs.writeFile('agencias-recomendadas.json', json, 'utf8', function (err) {
                                 if (err) throw err;
                             });
-                            res.status(200).send("La agencia ya no es recomendada")
+                            res.status(200).send("La agencia ya no es recomendada");
                         } else {
-                            res.status(200).send("La agencia no es recomendada")
+                            res.status(200).send("La agencia no es recomendada");
                             //throw new Error('La agencia no es recomendada');
                         }
                     }
