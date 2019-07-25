@@ -9,12 +9,17 @@
           {{site.viewValue}}
         </mat-option>
       </mat-select>
-      <mat-error *ngIf="selectedSite">Ingrese un metodo de pago</mat-error>
+      <mat-error *ngIf="selectedSite">Seleccione un sitio</mat-error>
     </mat-form-field>
     <mat-form-field>
-      <input matInput type="text" name="payment_method_id" [ngModel]="searchAgency?.payment_method_id" required
-        minlength="3" placeholder="Metodo de pago" #payment_method_id="ngModel">
-      <mat-error *ngIf="payment_method_id.invalid">Ingrese un metodo de pago</mat-error>
+      <mat-label>Métodos de pago</mat-label>
+      <mat-select required [(value)]="selectedPaymentMethod" [(ngModel)]="selectedPaymentMethod"
+        name="payment_method">
+        <mat-option *ngFor="let paymentMethod of paymentMethodsCombo" [value]="paymentMethod.value">
+          {{paymentMethod.viewValue}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="selectedPaymentMethod">Seleccione un sitio</mat-error>
     </mat-form-field>
     <mat-form-field>
       <input matInput name="latitud" [ngModel]="searchAgency?.latitud" required placeholder="Latitud"

@@ -6,16 +6,7 @@ const router = express.Router();
 let request = require('request');
 let fs = require("fs")
 
-router.get('/:site_id/payment_methods', function (req, res) {
-    let siteId = req.params.site_id
-    request.get("https://api.mercadolibre.com/sites/" + siteId + "/payment_methods", function (error, response, body) {
-        if (error) {
-            res.send(error)
-        }
-        res.send(JSON.parse(body))
 
-    });
-});
 //http://localhost:3000/agencies/MLA?payment_method=rapipago&latitud=-31.412971&longitud=-64.18758&radio=500&limit=500&order_criteria=address_line&order_criteria_sort=
 
 router.get('/:site_id/', function (req, res) {

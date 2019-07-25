@@ -28,23 +28,27 @@ export class AgencyCreateComponent implements OnInit {
   isLoading = false;
   selectedCriterioOrdenamiento: string = "address_line"
   selectedCriterioOrdenamientoSort: string = "ASC"
-  selectedSite: string
+  selectedSite: string = "MLA"
+  selectedPaymentMethod: string
   private sitesSub: Subscription;
+  private paymentMethodsSub: Subscription;
 
   private sites: any[] = []
+  private payment_methods: any[] = []
 
   criteriosOrdenSort: ComboValue[] = [
-    {value: 'ASC', viewValue: 'Ascendente'},
-    {value: 'DESC', viewValue: 'Descendente'}
+    { value: 'ASC', viewValue: 'Ascendente' },
+    { value: 'DESC', viewValue: 'Descendente' }
   ];
 
   criteriosOrden: ComboValue[] = [
-    {value: 'address_line', viewValue: 'Dirección'},
-    {value: 'agency_code', viewValue: 'Codigo Agencia'},
-    {value: 'distance', viewValue: 'Distancia'}
+    { value: 'address_line', viewValue: 'Dirección' },
+    { value: 'agency_code', viewValue: 'Codigo Agencia' },
+    { value: 'distance', viewValue: 'Distancia' }
   ];
 
   sitesCombo: ComboValue[] = []
+  paymentMethodsCombo: ComboValue[] = []
 
   constructor(
     public agenciesService: AgencysService,
@@ -56,21 +60,39 @@ export class AgencyCreateComponent implements OnInit {
     this.searchAgency.latitud = "31.4158499";
     this.searchAgency.longitud = "-64.1870048"
     this.sitesSub = this.agenciesService.getSiteUpdateListener()
-    .subscribe((sites: any) => {
-    //  this.isLoading = false;
-      this.sites = sites
-      this.sites.sort(function (a, b) {
-        return a.name.localeCompare(b.name)
-    })
-      this.sitesCombo = this.sites.map(s => {
-        return {
+      .subscribe((sites: any) => {
+        //  this.isLoading = false;
+        this.sites = sites
+        this.agenciesService.getPaymentMethodForSite(this.selectedSite)
+        this.sites.sort(function (a, b) {
+          return a.name.localeCompare(b.name)
+        })
+        this.sitesCombo = this.sites.map(s => {
+          return {
             value: s.id,
             viewValue: s.name
-        }});
-    });
+          }
+        });
+      });
     this.agenciesService.getSites();
+
+    this.paymentMethodsSub = this.agenciesService.getPaymentMethodUpdateListener()
+      .subscribe((payments: any) => {
+
+        payments.sort(function (a, b) {
+          return a.name.localeCompare(b.name)
+        })
+        this.payment_methods = payments
+        this.paymentMethodsCombo = payments.map(s => {
+          return {
+            value: s.id,
+            viewValue: s.name
+          }
+        });
+      });
+    console.log(this.payment_methods)
+    //this.agenciesService.getPaymentMethodForSite(this.selectedSite)
     //this.selectedSite = "ALM"
-   
   }
 
   onSaveAgency(form: NgForm) {
@@ -84,10 +106,15 @@ export class AgencyCreateComponent implements OnInit {
       limit = parseInt(form.value.limit)
     }
 
-    this.agenciesService.getAgencies(this.selectedSite, form.value.payment_method_id, form.value.latitud,
+    this.agenciesService.getAgencies(this.selectedSite, this.selectedPaymentMethod, form.value.latitud,
       form.value.longitud, form.value.radio, limit, this.selectedCriterioOrdenamiento, this.selectedCriterioOrdenamientoSort)
 
     form.resetForm();
     this.router.navigate(["/"]);
+  }
+
+  ngOnDestroy() {
+    this.sitesSub.unsubscribe();
+    this.paymentMethodsSub.unsubscribe();
   }
 }
