@@ -1,5 +1,6 @@
 # node-meli-agencies
 Angular and node app for agencies to pay Mercado Libre
+Based on https://agencies.docs.apiary.io/#introduction/get-reports-by-payment-method
 
 Run "npm install" inside this project folder to install all dependencies.
 Run "ng serve" to see the app in action (try "npm start" in case "ng serve" fails)
