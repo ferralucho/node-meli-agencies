@@ -24,7 +24,7 @@
     "@angular/router": "^8.0.0",
     "body-parser": "^1.18.3",
     "core-js": "^3.1.2",
-    "express": "^4.16.3",
+    "express": "^4.17.3",
     "mongoose": "^5.1.2",
     "rxjs": "^6.0.0",
     "zone.js": "^0.9.1"
